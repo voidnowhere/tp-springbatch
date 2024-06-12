@@ -1,5 +1,6 @@
 package com.example.technomakers.springbatch.exercice.config;
 
+import com.example.technomakers.springbatch.exercice.model.Hero;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemStreamException;
 import org.springframework.batch.item.file.FlatFileItemWriter;
@@ -7,34 +8,23 @@ import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
 import org.springframework.batch.item.file.transform.FieldExtractor;
 import org.springframework.core.io.FileSystemResource;
 
-import com.example.technomakers.springbatch.exercice.model.Student;
-
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class StudentItemWriter extends FlatFileItemWriter<Student> {
+public class HeroItemWriter extends FlatFileItemWriter<Hero> {
 
-    private static final String HEADER = "Name,Marks,Mention";
-    private static final String FILE_NAME = "students_results.csv"; // Specify the output folder here
+    private static final String HEADER = "Name,Score";
+    private static final String FILE_NAME = "heroes_results.csv"; // Specify the output folder here
 
-    public StudentItemWriter() {
+    public HeroItemWriter() {
         setResource(new FileSystemResource(FILE_NAME));
-        setLineAggregator(new DelimitedLineAggregator<Student>() {{
+        setLineAggregator(new DelimitedLineAggregator<Hero>() {{
             setDelimiter(",");
-            setFieldExtractor((FieldExtractor<Student>) student -> {
-                String mention = "not bad";
-                if (student.getMarks() >= 10){
-                    mention = "good";
-                }
-                if (student.getMarks() >= 15){
-                    mention = "very good";
-                }
-                return new Object[] {
-                        student.getName(), student.getMarks(), mention
-                };
+            setFieldExtractor((FieldExtractor<Hero>) hero -> new Object[]{
+                    hero.getName(), hero.getScore()
             });
         }});
     }

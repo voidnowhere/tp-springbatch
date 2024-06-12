@@ -16,8 +16,8 @@
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.postgresql.Driver"/>
         <property name="url" value="jdbc:postgresql://localhost:5432/tp_springbatch"/>
-        <property name="username" value="recettebatch"/>
-        <property name="password" value="recettebatch"/>
+        <property name="username" value="user"/>
+        <property name="password" value="password"/>
     </bean>
 
 

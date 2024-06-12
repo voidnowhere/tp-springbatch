@@ -39,4 +39,22 @@
                 <batch:listener ref="jobListener" />
         </batch:listeners>
     </batch:job>
+
+    <bean id="heroItemReader" class="com.example.technomakers.springbatch.exercice.config.HeroItemReader" />
+    <bean id="heroItemProcessor" class="com.example.technomakers.springbatch.exercice.config.HeroItemProcessor" />
+    <bean id="heroItemWriter" class="com.example.technomakers.springbatch.exercice.config.HeroItemWriter" />
+
+    <batch:job id="heroJob" job-repository="jobRepository">
+        <batch:step id="stepOne">
+            <batch:tasklet>
+                <batch:chunk reader="heroItemReader" processor="heroItemProcessor" writer="heroItemWriter" commit-interval="10" />
+            </batch:tasklet>
+            <batch:listeners>
+                <batch:listener ref="stepListener" />
+            </batch:listeners>
+        </batch:step>
+        <batch:listeners>
+            <batch:listener ref="jobListener" />
+        </batch:listeners>
+    </batch:job>
 </beans>
